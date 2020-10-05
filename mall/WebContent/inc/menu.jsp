@@ -9,7 +9,10 @@
 			<a class="nav-link btn btn-Success" href="/mall/index.jsp">[홈으로]</a>		
 		</li>
 		<li class="nav-item">
-			<a class="nav-link btn btn-Success" href="/mal/ordersList.jsp">[내 주문 목록]</a>		
+			<a class="nav-link btn btn-Success" href="/mall/member/myInfo.jsp">[내정보]</a>		
+		</li>
+		<li class="nav-item">
+			<a class="nav-link btn btn-Success" href="/mall/orders/ordersList.jsp">[내 주문 목록]</a>		
 		</li>
 		
 	</ul>

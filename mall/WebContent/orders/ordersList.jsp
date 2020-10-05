@@ -32,8 +32,9 @@
    
 
 %>   
+<div class="container">
    <h2>내 주문 내역</h2>
-   <table class = "table">
+   <table class = "table table-dark table-striped table-hover">
       <thead>
          <tr>
             <td>주문 번호</td>
@@ -66,5 +67,6 @@
       </tbody>      
    </table>
 </div>   
+</div>
 </body>
 </html>
