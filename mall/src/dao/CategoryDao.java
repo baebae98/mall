@@ -68,7 +68,7 @@ public class CategoryDao {
       String dbid = "root";
       String dbpw = "java1004";
       //sql 문
-      String sql ="select category_id, category_name from category order by category_id desc limit ?,?";
+      String sql ="select category_id, category_name, category_pic from category order by category_id desc limit ?,?";
       Class.forName(driver);
       //마리아 db 연결
       Connection conn = DriverManager.getConnection(dbaddr, dbid,dbpw);
@@ -85,6 +85,7 @@ public class CategoryDao {
         // category.categoryName = rs.getString("category_name");
          category.setCategoryId(rs.getInt("category_id"));
          category.setCategoryName(rs.getString("category_name"));
+         category.setCategoryPic(rs.getString("category_pic"));
          list.add(category);
       }
       //데이터 베이스 닫기
@@ -156,7 +157,7 @@ public class CategoryDao {
          DBUtil dbUtil = new DBUtil();
          Connection conn = dbUtil.getConnection();         
          //sql 문
-         String sql ="select category_id, category_pic from category where category_ck = 'Y' limit 0,8";
+         String sql ="select category_id, category_pic, category_name from category where category_ck = 'Y' limit 0,8";
          //데이터 베이스 접속
          PreparedStatement stmt = conn.prepareStatement(sql);
          //결과문 출력
@@ -168,6 +169,7 @@ public class CategoryDao {
            // category.categoryPic = rs.getString("category_pic");
             category.setCategoryId(rs.getInt("category_id"));
             category.setCategoryPic(rs.getString("category_pic"));
+            category.setCategoryName(rs.getString("category_name"));
             list.add(category);
          }
          //데이터 베이스 닫기

@@ -41,7 +41,7 @@
 		<div>
 			<!-- 최상단 검색바 -->
 			<div class="row">
-				<div class="col-sm-3"><h2>Goodee Shop</h2></div>
+				<div class="col-sm-3"><a href="index.jsp" class="text-dark"><h2>Goodee Shop</h2></a></div>
 				<div class="col">
 					<form>
 					<table>
@@ -56,9 +56,9 @@
 					</form>
 				</div>
 				<div class="col-sm-3">
-					<i class='fas fa-user-alt' style='font-size: 36px'></i> <!-- 사람모양 아이콘 -->
+					<a href="" class="text-dark"><i class='fas fa-user-alt' style='font-size: 36px'></i></a> <!-- 사람모양 아이콘 -->
 					<i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
-					<i class='fas fa-shopping-cart' style='font-size: 36px'></i><!-- 쇼핑카트 아이콘 -->
+					<a href="/mall/orders/ordersList.jsp" class="text-dark"><i class='fas fa-shopping-cart' style='font-size: 36px'></i></a><!-- 쇼핑카트 아이콘 -->
 				</div>
 			</div>
 		</div>
@@ -82,7 +82,7 @@
 				<!-- 로그인 상태-->
 					<li class="nav-item"><a class="nav-link"><%=(session.getAttribute("loginMemberEmail"))%>님 반갑습니다.</a></li>
 					<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/member/logoutAction.jsp">로그아웃</a></li>
-					<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/member/signup.jsp">회원정보</a></li>
+					<li class="nav-item"><a class="nav-link" href="<%=request.getContextPath()%>/member/">회원정보</a></li>
 				<%
 					}
 				%>
@@ -132,7 +132,7 @@
 									</tr>
 									<tr>
 										<td>
-											카테고리
+											<a href="" class="text-dark"><%=c.getCategoryName() %></a>
 										</td>
 									</tr>
 								</table>
