@@ -56,7 +56,7 @@
 					</form>
 				</div>
 				<div class="col-sm-3">
-					<a href="" class="text-dark"><i class='fas fa-user-alt' style='font-size: 36px'></i></a> <!-- 사람모양 아이콘 -->
+					<a href="/mall/member/myInfo.jsp" class="text-dark"><i class='fas fa-user-alt' style='font-size: 36px'></i></a> <!-- 사람모양 아이콘 -->
 					<i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
 					<a href="/mall/orders/ordersList.jsp" class="text-dark"><i class='fas fa-shopping-cart' style='font-size: 36px'></i></a><!-- 쇼핑카트 아이콘 -->
 				</div>
@@ -174,15 +174,19 @@
 					for (Product p : productList) {
 						i=i+1;
 				%>
-						<td>
-							<div class="card" style="width: 400px">
-								<img class="card-img-top" src="<%=request.getContextPath()%>/images/<%=p.getProductPic()%>">
-								<div class="card-body">
-									<h4 class="card-title"><a href="<%=request.getContextPath()%>/product/productOne.jsp?productId=<%=p.getProductId()%>"><%=p.getProductName()%></a></h4>
-									<p class="card-text"><%=p.getProductPrice()%></p>
-								</div>
-							</div>
-						</td>
+					
+			<td>
+						<div class="card" style="width:400px">
+						<img class="card-img-top" src="/mall-admin/image/<%=p.getProductPic()%>" style="width:398px;height:300px">
+						<div class="card-body">
+					<h4 class="card-title">
+						<a href="<%=request.getContextPath()%>/product/productOne.jsp?productId=<%=p.getProductId()%>">
+						<%=p.getProductName() %></a>
+					</h4>
+					<p class="card-text"><%=p.getProductPrice() %>원</p>
+					</div>
+				</div>
+			</td>
 				<%
 						if(i%3==0) {
 				%>

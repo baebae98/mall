@@ -42,7 +42,7 @@ public class ProductDao {
       DBUtil dbUtil = new DBUtil();
       Connection conn = dbUtil.getConnection();         
       //sql 문
-      String sql ="select product_id, category_id, product_name, product_price, product_pic from product order by product_id limit 0,10";
+      String sql ="select product_id, category_id, product_name, product_price, product_pic from product order by product_id limit 0,9";
       //데이터 베이스 접속
       PreparedStatement stmt = conn.prepareStatement(sql);
       //결과문 출력
