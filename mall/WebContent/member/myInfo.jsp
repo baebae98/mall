@@ -30,9 +30,9 @@
 	Member member = memberDao.selectmyInfoEmail(session.getAttribute("loginMemberEmail").toString());
 %>
 
-<div><!-- 상단 메뉴바 -->
-      <jsp:include page="/inc/menu.jsp"></jsp:include>
-</div>
+	<div><!-- 상단 메뉴바 -->
+	      <jsp:include page="/inc/menu.jsp"></jsp:include>
+	</div>
 <div class="container">
 <h2>내 정보</h2>
 <table class="table table-dark table-striped table-hover">
@@ -44,8 +44,7 @@
 			<td><%=member.getMemberName() %></td>
 			<td>가입날짜</td>
 			<td><%=member.getMemberDate() %></td>
-			<td>수정</td>
-			<td>수정</td>
+			<td><a href="" class="">수정</a></td>
 		</tr>
 	</thead>
 </table>
