@@ -62,6 +62,7 @@
 		<!-- Menu 항목을 include한다 -->
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
+	>
 
 	<div style="margin-top: 35px;"></div>
 
@@ -208,6 +209,7 @@
 	</div>
 
 	<div style="margin-top: 60px;"></div>
+
 
 </body>
 </html>

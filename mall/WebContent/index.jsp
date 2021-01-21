@@ -91,7 +91,7 @@
 				<div style="margin-top: 8px;"></div>
 
 				<img width="825" height="310"
-					src="<%=request.getContextPath()%>/image/banner.png">
+					src="<%=request.getContextPath()%>/image/banner.PNG">
 			</div>
 		</div>
 
