@@ -1,181 +1,165 @@
 package dao;
+
 import java.util.ArrayList;
-import vo.Category;
 import java.sql.*;
-import commons.*;
+import vo.Category;
+import commons.DBUtil;
 
 public class CategoryDao {
-   //ÆäÀÌÂ¡
-   
-   //µ¥ÀÌÅÍ »ı¼º
-   public void insertCategory(Category category) throws Exception {
-      //µ¥ÀÌÅÍ º£ÀÌ½º ¿¬°á
-      DBUtil dbUtil = new DBUtil();
-      Connection conn = dbUtil.getConnection();
-      //sql¹®
-      String sql ="insert into category(category_name) values(?)";
-      //µ¥ÀÌÅÍ º£ÀÌ½º Á¢¼Ó
-      PreparedStatement stmt = conn.prepareStatement(sql);
-      //stmt.setString(1, category.categoryName);
-      stmt.setString(1, category.getCategoryName());
-      stmt.executeLargeUpdate();
-   }
-   //µ¥ÀÌÅÍ »èÁ¦
-   public void deleteCategory(Category category) throws Exception{
-      //µ¥ÀÌÅÍ º£ÀÌ½º ¿¬°á
-      DBUtil dbUtil = new DBUtil();
-      Connection conn = dbUtil.getConnection();      
-      //sql¹®
-      String sql ="delete from category where category_id=?";
-      //µ¥ÀÌÅÍ º£ÀÌ½º Á¢¼Ó
-      PreparedStatement stmt = conn.prepareStatement(sql);
-     // stmt.setInt(1,  category.categoryId);
-      stmt.setInt(1, category.getCategoryId());
-      //°á°ú »èÁ¦
-      stmt.executeLargeUpdate();
-   }
-   //µ¥ÀÌÅÍ ¼öÁ¤
-   public void updateCategory(Category category) throws Exception{
-      //db ÁÖ¼Ò,ÀÌµğ, ºñ¹Ğ¹øÈ£ º¯¼ö ÁöÁ¤
-      String driver ="org.mariadb.jdbc.Driver";
-      String dbaddr ="jdbc:mariadb://localhost:3306/mall";
-      String dbid ="root";
-      String dbpw ="java1004";
-      //sql¹®
-      String sql ="update category set category_name = ? where category_id = ?";
-      Class.forName(driver);
-      //mariadb ¿¬°á
-      Connection conn = DriverManager.getConnection(dbaddr, dbid, dbpw);
-      //µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó
-      PreparedStatement stmt = conn.prepareStatement(sql);
-     // stmt.setString(1, category.categoryName);
-     // stmt.setInt(2, category.categoryId);
-      //Ä¸½¶È­·Î ÀÎÇØ ÄÚµå ¼öÁ¤
-      stmt.setString(1, category.getCategoryName());
-      stmt.setInt(2, category.getCategoryId());
-      //°á°ú ¼öÁ¤
-      stmt.executeLargeUpdate();
-   }
-   
-   //¸®½ºÆ®¹®
-   public ArrayList<Category> selectCategoryList(int currentPage) throws Exception{
-      //¸®½ºÆ® ÁöÁ¤
-      ArrayList<Category> list = new ArrayList<Category>();
-      
-      //db ÁÖ¼Ò, ¾ÆÀÌµğ , ºñ¹Ğ¹øÈ£ º¯¼ö ÁöÁ¤
-      String driver ="org.mariadb.jdbc.Driver";
-      String dbaddr = "jdbc:mariadb://localhost:3306/mall";
-      String dbid = "root";
-      String dbpw = "java1004";
-      //sql ¹®
-      String sql ="select category_id, category_name, category_pic from category order by category_id desc limit ?,?";
-      Class.forName(driver);
-      //¸¶¸®¾Æ db ¿¬°á
-      Connection conn = DriverManager.getConnection(dbaddr, dbid,dbpw);
-      //µ¥ÀÌÅÍ º£ÀÌ½º Á¢¼Ó
-      PreparedStatement stmt = conn.prepareStatement(sql);
-      stmt.setInt(1, (currentPage-1)*10);
-      stmt.setInt(2, 10);
-      //°á°ú¹® Ãâ·Â
-      ResultSet rs = stmt.executeQuery();
-      
-      while(rs.next()) {
-         Category category = new Category();
-        // category.categoryId = rs.getInt("category_id");
-        // category.categoryName = rs.getString("category_name");
-         category.setCategoryId(rs.getInt("category_id"));
-         category.setCategoryName(rs.getString("category_name"));
-         category.setCategoryPic(rs.getString("category_pic"));
-         list.add(category);
-      }
-      //µ¥ÀÌÅÍ º£ÀÌ½º ´İ±â
-      conn.close();
-      
-      return list;
-   }
-   //¸®½ºÆ®¹®
-      public ArrayList<Category> selectCategoryList() throws Exception{
-         //¸®½ºÆ® ÁöÁ¤
-         ArrayList<Category> list = new ArrayList<Category>();
-         
-         //µ¥ÀÌÅÍ º£ÀÌ½º ¿¬°á
-         DBUtil dbUtil = new DBUtil();
-         Connection conn = dbUtil.getConnection();         
-         //sql ¹®
-         String sql ="select category_id, category_name from category order by category_id desc ";
-         //µ¥ÀÌÅÍ º£ÀÌ½º Á¢¼Ó
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         //°á°ú¹® Ãâ·Â
-         ResultSet rs = stmt.executeQuery();
-         
-         while(rs.next()) {
-            Category category = new Category();
-            //category.categoryId = rs.getInt("category_id");
-            //category.categoryName = rs.getString("category_name");
-            category.setCategoryId(rs.getInt("category_id"));
-            category.setCategoryName(rs.getString("category_name"));
-            list.add(category);
-         }
-         //µ¥ÀÌÅÍ º£ÀÌ½º ´İ±â
-         conn.close();
-         
-         return list;
-      }
-      
-      //ÃÖ´ë ÆäÀÌÁö ±¸ÇÏ±â
-      public int getCategoryEndPage() throws Exception{
-         //ÆäÀÌÁö º¯¼ö ÁöÁ¤
-         int endPage = 1;
-         //µ¥ÀÌÅÍ º£ÀÌ½º ¿¬°á
-         DBUtil dbUtil = new DBUtil();
-         Connection conn = dbUtil.getConnection();
-         String sql = "select count(*) from category"; 
-         //µ¥ÀÌÅÍº£ÀÌ½º Á¢¼Ó
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         ResultSet rs = stmt.executeQuery();
-         
-         if(rs.next()) {
-            endPage = rs.getInt("count(*)");
-            if(endPage%10 == 0) {
-               endPage = (int)(endPage/10);
-            }else {
-               endPage = (int)(endPage/10) + 1;
-            }
-         }
-      
-      
-      conn.close();
-      return endPage;
+	// ì¹´í…Œê³ ë¦¬ ì¶”ê°€í•˜ëŠ” ë©”ì†Œë“œ
+	public void insertCategory(Category category) throws Exception {	// ì¹´í…Œê³ ë¦¬ íƒ€ì…ì„ ì…ë ¥ë°›ëŠ”ë‹¤.
+		DBUtil dbUtil = new DBUtil();	// ë°ì´í„°ë² ì´ìŠ¤ ì •ë³´ê°€ ë‹´ê¸´ ê°ì²´ ìƒì„±
+		Connection conn = dbUtil.getConnection(); // ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+		
+		// SQL ëª…ë ¹, ëª…ë ¹ ì¤€ë¹„
+		String sql = "insert into category(category_name) values(?)";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, category.getCategoryName());	// ì¹´í…Œê³ ë¦¬ íƒ€ì…ì˜ categoryNameì„ ì…ë ¥ë°›ëŠ”ë‹¤.
+		
+		stmt.executeUpdate();
+		
+		conn.close(); // ë°ì´í„°ë² ì´ìŠ¤ ì‚¬ìš©ì„ ë‹¤ í–ˆìœ¼ë©´ ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
+	}
+	
+	// ì¹´í…Œê³ ë¦¬ ì‚­ì œí•˜ëŠ” ë©”ì†Œë“œ
+	public void deleteCategory(Category category) throws Exception {
+		DBUtil dbUtil = new DBUtil();	// ë°ì´í„°ë² ì´ìŠ¤ ì •ë³´ê°€ ë‹´ê¸´ ê°ì²´ ìƒì„±
+		Connection conn = dbUtil.getConnection(); // ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+		
+		// SQL ëª…ë ¹, ëª…ë ¹ ì¤€ë¹„
+		String sql = "delete from category where category_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, category.getCategoryId());	// ì¹´í…Œê³ ë¦¬ íƒ€ì…ì˜ categoryIdë¥¼ ì…ë ¥ë°›ëŠ”ë‹¤.
+		
+		stmt.executeUpdate();
+		
+		conn.close(); // ë°ì´í„°ë² ì´ìŠ¤ ì‚¬ìš©ì„ ë‹¤ í–ˆìœ¼ë©´ ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
+	}
+	
+	// ì¹´í…Œê³ ë¦¬  ìˆ˜ì •í•˜ëŠ” ë©”ì†Œë“œ
+	public void updateCategory(Category category) throws Exception {	// ì¹´í…Œê³ ë¦¬ íƒ€ì…ì„ ì…ë ¥ë°›ëŠ”ë‹¤.
+		DBUtil dbUtil = new DBUtil();	// ë°ì´í„°ë² ì´ìŠ¤ ì •ë³´ê°€ ë‹´ê¸´ ê°ì²´ ìƒì„±
+		Connection conn = dbUtil.getConnection(); // ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+		
+		// SQL ëª…ë ¹, ëª…ë ¹ ì¤€ë¹„
+		String sql = "update category set category_name = ? where category_id = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, category.getCategoryName());	// ì¹´í…Œê³ ë¦¬ íƒ€ì…ì˜ categoryNameì„ ì…ë ¥ë°›ëŠ”ë‹¤.
+		stmt.setInt(2, category.getCategoryId());		// ì¹´í…Œê³ ë¦¬ íƒ€ì…ì˜ categoryIdë¥¼ ì…ë ¥ë°›ëŠ”ë‹¤.
+		
+		stmt.executeUpdate();
+		
+		conn.close(); // ë°ì´í„°ë² ì´ìŠ¤ ì‚¬ìš©ì„ ë‹¤ í–ˆìœ¼ë©´ ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
+	}
+	
+	// ì¹´í…Œê³ ë¦¬ ëª©ë¡ì„ ì¶œë ¥í•˜ëŠ” ë©”ì†Œë“œ
+	public ArrayList<Category> selectCategoryList(int limit1, int limit2) throws Exception {
+		// ArrayList ìƒì„±
+		ArrayList<Category> list = new ArrayList<Category>();
+		
+		DBUtil dbUtil = new DBUtil();	// ë°ì´í„°ë² ì´ìŠ¤ ì •ë³´ê°€ ë‹´ê¸´ ê°ì²´ ìƒì„±
+		Connection conn = dbUtil.getConnection(); // ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+		
+		// SQL ëª…ë ¹, ëª…ë ¹ ì¤€ë¹„
+		String sql = "select category_id, category_name from category order by category_id asc limit ?, ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, limit1);	// ì²« ë²ˆì§¸ ì¸ì (ì‹œì‘ ë°ì´í„°)
+        stmt.setInt(2, limit2);	// ë‘ ë²ˆì§¸ ì¸ì (ë°ì´í„° ê°œìˆ˜)
+        
+		// SQL ëª…ë ¹ ì‹¤í–‰
+		ResultSet rs = stmt.executeQuery();
+		
+		// ë°ì´í„°ë² ì´ìŠ¤ ë‚´ìš© ë¶ˆëŸ¬ì˜¤ê¸°
+		while(rs.next()) {
+			Category category = new Category();	// ì¹´í…Œê³ ë¦¬ ê°ì²´ ìƒì„±
+			category.setCategoryId(rs.getInt("category_id"));
+			category.setCategoryName(rs.getString("category_name"));
+			list.add(category);	// ë¦¬ìŠ¤íŠ¸ì— ë°ì´í„° ì¶”ê°€
+		}
+		
+		conn.close(); // ë°ì´í„°ë² ì´ìŠ¤ ì‚¬ìš©ì„ ë‹¤ í–ˆìœ¼ë©´ ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
+		
+		// ìµœì¢… ë°ì´í„° ë°˜í™˜
+		return list;
+	}
+	
+	// ì¹´í…Œê³ ë¦¬ ëª©ë¡ ì „ì²´ë¥¼ ì¶œë ¥í•˜ëŠ” ë©”ì†Œë“œ
+	public ArrayList<Category> selectCategoryListAll() throws Exception {
+		// ArrayList ìƒì„±
+		ArrayList<Category> list = new ArrayList<Category>();
+		
+		DBUtil dbUtil = new DBUtil();	// ë°ì´í„°ë² ì´ìŠ¤ ì •ë³´ê°€ ë‹´ê¸´ ê°ì²´ ìƒì„±
+		Connection conn = dbUtil.getConnection(); // ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+		
+		// SQL ëª…ë ¹, ëª…ë ¹ ì¤€ë¹„
+		String sql = "select category_id, category_name from category order by category_id asc";
+		PreparedStatement stmt = conn.prepareStatement(sql);   
+        
+		// SQL ëª…ë ¹ ì‹¤í–‰
+		ResultSet rs = stmt.executeQuery();
+		
+		// ë°ì´í„°ë² ì´ìŠ¤ ë‚´ìš© ë¶ˆëŸ¬ì˜¤ê¸°
+		while(rs.next()) {
+			Category category = new Category();	// ì¹´í…Œê³ ë¦¬ ê°ì²´ ìƒì„±
+			category.setCategoryId(rs.getInt("category_id"));
+			category.setCategoryName(rs.getString("category_name"));
+			list.add(category);	// ë¦¬ìŠ¤íŠ¸ì— ë°ì´í„° ì¶”ê°€
+		}
+		
+		conn.close(); // ë°ì´í„°ë² ì´ìŠ¤ ì‚¬ìš©ì„ ë‹¤ í–ˆìœ¼ë©´ ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
+		
+		// ìµœì¢… ë°ì´í„° ë°˜í™˜
+		return list;
+	}
+	
+	// ì „ì²´ ì¹´í…Œê³ ë¦¬ì˜ ì „ì²´ ë°ì´í„° ê°œìˆ˜ êµ¬í•˜ê¸°
+	public int countAllData() throws Exception {
+		int totalCount = 0;	// ê¸°ë³¸ê°’ì€ 0ìœ¼ë¡œ
+		
+		DBUtil dbUtil = new DBUtil();	// ë°ì´í„°ë² ì´ìŠ¤ ì •ë³´ê°€ ë‹´ê¸´ ê°ì²´ ìƒì„±
+		Connection conn = dbUtil.getConnection(); // ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+		
+		// SQL ëª…ë ¹, ëª…ë ¹ ì¤€ë¹„
+		String sql = "select count(*) from category";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		// SQL ëª…ë ¹ ì‹¤í–‰
+		ResultSet rs = stmt.executeQuery();
+		
+		if (rs.next()) {
+			totalCount = rs.getInt("count(*)");
+		}
+		
+		conn.close(); // ë°ì´í„°ë² ì´ìŠ¤ ì‚¬ìš©ì„ ë‹¤ í–ˆìœ¼ë©´ ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
+				
+		// ìµœì¢… ë°ì´í„° ë°˜í™˜
+		return totalCount;
+	}
+	
+	// ì¹´í…Œê³ ë¦¬ ì¶”ì²œ ë¦¬ìŠ¤íŠ¸
+	public ArrayList<Category> selectCategoryCkList() throws Exception {
+		ArrayList<Category> list = new ArrayList<Category>();
 
-   }
-   //ÃßÃµ Category ¸ñ·Ï
-      public ArrayList<Category> selectCategoryCKList() throws Exception{
-         //¸®½ºÆ® ÁöÁ¤
-         ArrayList<Category> list = new ArrayList<Category>();
-         
-         //µ¥ÀÌÅÍ º£ÀÌ½º ¿¬°á
-         DBUtil dbUtil = new DBUtil();
-         Connection conn = dbUtil.getConnection();         
-         //sql ¹®
-         String sql ="select category_id, category_pic, category_name from category where category_ck = 'Y' limit 0,8";
-         //µ¥ÀÌÅÍ º£ÀÌ½º Á¢¼Ó
-         PreparedStatement stmt = conn.prepareStatement(sql);
-         //°á°ú¹® Ãâ·Â
-         ResultSet rs = stmt.executeQuery();
-         
-         while(rs.next()) {
-            Category category = new Category();
-           // category.categoryId = rs.getInt("category_id");
-           // category.categoryPic = rs.getString("category_pic");
-            category.setCategoryId(rs.getInt("category_id"));
-            category.setCategoryPic(rs.getString("category_pic"));
-            category.setCategoryName(rs.getString("category_name"));
-            list.add(category);
-         }
-         //µ¥ÀÌÅÍ º£ÀÌ½º ´İ±â
-         conn.close();
-         
-         return list;
-      }
-   
+		DBUtil dbUtil = new DBUtil();	// ë°ì´í„°ë² ì´ìŠ¤ ì •ë³´ê°€ ë‹´ê¸´ ê°ì²´ ìƒì„±
+		Connection conn = dbUtil.getConnection(); // ë°ì´í„°ë² ì´ìŠ¤ ì ‘ì†
+		
+		// SQL ëª…ë ¹, ëª…ë ¹ ì¤€ë¹„
+		String sql = "select category_id, category_name, category_pic from category where category_ck = 'Y' limit 0, 4";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		// SQL ëª…ë ¹ ì‹¤í–‰
+		ResultSet rs = stmt.executeQuery();
+		
+		while (rs.next()) {
+			Category category = new Category();	// ì¹´í…Œê³ ë¦¬ ê°ì²´ ìƒì„±
+			category.setCategoryId(rs.getInt("category_id"));
+			category.setCategoryName(rs.getString("category_name"));
+			category.setCategoryPic(rs.getString("category_pic"));
+			list.add(category);	// ë¦¬ìŠ¤íŠ¸ì— ë°ì´í„° ì¶”ê°€
+		}
+		
+		conn.close(); // ë°ì´í„°ë² ì´ìŠ¤ ì‚¬ìš©ì„ ë‹¤ í–ˆìœ¼ë©´ ì ‘ì†ì„ ì¢…ë£Œí•œë‹¤.
+		
+		return list;
+	}
 }

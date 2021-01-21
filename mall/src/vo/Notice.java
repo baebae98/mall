@@ -1,35 +1,39 @@
 package vo;
-/*
- * private ·Î Ä¸½¶È­
- */
+
 public class Notice {
-	private int noticeId; //°Ô½ÃÆÇ ¹øÈ£(ÀÚµ¿À¸·Î ºÎ¿©)
-	private String noticeTitle;//°Ô½ÃÆÇ Á¦¸ñ
-	private String noticeContent;//°Ô½ÃÆÇ ³»¿ë
-	private String noticeDate; // ¿ø·¡´Â dateÇØ¾ßÇÏÁö¸¸ ¸¶¸®¾Æ µğºñÀÇ date¸¦ ÀÚ¹Ù¿¡¼­ date·Î ¸ø¹Ù²Ş
+	private int noticeId;			// ê³µì§€ì‚¬í•­ ë²ˆí˜¸
+	private String noticeTitle;		// ê³µì§€ì‚¬í•­ ì œëª©
+	private String noticeContent;	// ê³µì§€ì‚¬í•­ ë‚´ìš©
+	private String noticeDate;		// ê³µì§€ì‚¬í•­ ê²Œì‹œì¼ì‹œ
 	
-	// ÇÊµåº°(¸â¹öº¯¼ö) get/set »ı¼º
 	public int getNoticeId() {
 		return noticeId;
 	}
+	
 	public void setNoticeId(int noticeId) {
 		this.noticeId = noticeId;
 	}
+	
 	public String getNoticeTitle() {
 		return noticeTitle;
 	}
+	
 	public void setNoticeTitle(String noticeTitle) {
 		this.noticeTitle = noticeTitle;
 	}
+	
 	public String getNoticeContent() {
 		return noticeContent;
 	}
+	
 	public void setNoticeContent(String noticeContent) {
 		this.noticeContent = noticeContent;
 	}
+	
 	public String getNoticeDate() {
 		return noticeDate;
 	}
+	
 	public void setNoticeDate(String noticeDate) {
 		this.noticeDate = noticeDate;
 	}

@@ -1,69 +1,76 @@
 package vo;
 
-/*
- * class Orders
- * 
- */
 public class Orders {
-	//Ä¸½¶È­
-	private int ordersId; // ÁÖ¹®¹øÈ£
-	private String ordersDate; // ÁÖ¹®ÇÑ½Ã°£
-	private int productId; //  »óÇ°¹øÈ£
-	private int ordersAmount; // ÁÖ¹®¼ö·®
-	private int ordersPrice; // ÁÖ¹®°¡°İ
-	private String memberEmail; // È¸¿ø¾ÆÀÌµğ
-	private String ordersAddr; // ÁÖ¹®ÇÑÁÖ¼Ò
-	private String ordersState; // ÁÖ¹®»óÅÂ
+	private int ordersId;		// ì£¼ë¬¸ë²ˆí˜¸
+	private int productId;		// ìƒí’ˆë²ˆí˜¸
+	private int ordersAmount;	// ìƒí’ˆìˆ˜ëŸ‰
+	private int ordersPrice;	// ì£¼ë¬¸ì‹œ ìƒí’ˆê°€ê²©
+	private String memberEmail;	// êµ¬ë§¤ì ì´ë©”ì¼
+	private String ordersAddr ;	// êµ¬ë§¤ì ì£¼ì†Œ
+	private String ordersState;	// ì£¼ë¬¸ìƒíƒœ
+	private String ordersDate;	// êµ¬ë§¤ì¼ì‹œ
 	
-	//Ä¸½¶È­
 	public int getOrdersId() {
 		return ordersId;
 	}
+	
 	public void setOrdersId(int ordersId) {
 		this.ordersId = ordersId;
 	}
-	public String getOrdersDate() {
-		return ordersDate;
-	}
-	public void setOrdersDate(String ordersDate) {
-		this.ordersDate = ordersDate;
-	}
+	
 	public int getProductId() {
 		return productId;
 	}
+	
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
+	
 	public int getOrdersAmount() {
 		return ordersAmount;
 	}
+	
 	public void setOrdersAmount(int ordersAmount) {
 		this.ordersAmount = ordersAmount;
 	}
+	
 	public int getOrdersPrice() {
 		return ordersPrice;
 	}
+	
 	public void setOrdersPrice(int ordersPrice) {
 		this.ordersPrice = ordersPrice;
 	}
+	
 	public String getMemberEmail() {
 		return memberEmail;
 	}
+	
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
+	
 	public String getOrdersAddr() {
 		return ordersAddr;
 	}
+	
 	public void setOrdersAddr(String ordersAddr) {
 		this.ordersAddr = ordersAddr;
 	}
+	
 	public String getOrdersState() {
 		return ordersState;
 	}
+	
 	public void setOrdersState(String ordersState) {
 		this.ordersState = ordersState;
 	}
 	
+	public String getOrdersDate() {
+		return ordersDate;
+	}
 	
+	public void setOrdersDate(String ordersDate) {
+		this.ordersDate = ordersDate;
+	}
 }
